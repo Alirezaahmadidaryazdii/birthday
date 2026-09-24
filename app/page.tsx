@@ -2,11 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
 import Hero from "@/components/hero/hero";
 import AboutHana from "@/components/story/about-hana";
 import Books from "@/components/story/books";
-import Music from "@/components/story/musics";
 import South from "@/components/story/south";
 import Aurora from "@/components/story/aurora";
 import Seasons from "@/components/story/seasons";
@@ -20,11 +20,33 @@ import WorldBackground from "@/components/story/world-background";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleStart = async () => {
+    try {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.volume = 0.7;
+        await audioRef.current.play();
+      }
+
+      setStarted(true);
+    } catch (error) {
+      console.error("Audio playback failed:", error);
+    }
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <audio
+        ref={audioRef}
+        src="/music/hana.mp3"
+        preload="auto"
+      />
+
       <StoryProgress />
       <WorldBackground />
+
       <AnimatePresence mode="wait">
         {!started ? (
           <motion.section
@@ -97,14 +119,16 @@ export default function Home() {
                 transition={{ duration: 1, delay: 1.3 }}
                 className="mt-5 text-base leading-8 text-muted"
               >
-                یه دنیای کوچیک برای تو ساختم.
+                یه دنیای کوچیک برای تو ساختم؛
+                <br />
+                جایی که هر گوشه‌ش یه تکه از توئه.
               </motion.p>
 
               <motion.button
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.8 }}
-                onClick={() => setStarted(true)}
+                onClick={handleStart}
                 className="mt-10 flex items-center gap-3 rounded-full border border-foreground/10 bg-foreground/5 px-6 py-3 text-sm text-foreground backdrop-blur-xl transition active:scale-95"
               >
                 بریم؟
@@ -137,17 +161,16 @@ export default function Home() {
             <Books />
 
             <ChapterTransition
-              chapter="CHAPTER THREE"
-              title="چیزی که با موسیقی گفته می‌شه"
+              chapter="CHAPTER FOUR"
+              title="جایی حوالی جنوب"
             />
-
-            <Music />
-
-            <ChapterTransition chapter="CHAPTER FOUR" title="جایی حوالی جنوب" />
 
             <South />
 
-            <ChapterTransition chapter="CHAPTER FIVE" title="آسمونِ شفق" />
+            <ChapterTransition
+              chapter="CHAPTER FIVE"
+              title="آسمونِ شفق"
+            />
 
             <Aurora />
 
@@ -165,15 +188,24 @@ export default function Home() {
 
             <Pets />
 
-            <ChapterTransition chapter="CHAPTER EIGHT" title="چیزهای خوشمزه" />
+            <ChapterTransition
+              chapter="CHAPTER EIGHT"
+              title="چیزهای خوشمزه"
+            />
 
             <Food />
 
-            <ChapterTransition chapter="LITTLE THINGS" title="چیزهای کوچیک" />
+            <ChapterTransition
+              chapter="LITTLE THINGS"
+              title="چیزهای کوچیک"
+            />
 
             <LittleThings />
 
-            <ChapterTransition chapter="THE LAST PAGE" title="آخرین صفحه" />
+            <ChapterTransition
+              chapter="THE LAST PAGE"
+              title="آخرین صفحه"
+            />
 
             <TheLastPage />
           </motion.div>
