@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08182d;
+  --foreground: #f5f2eb;
+  --blue-light: #a9c9e8;
+  --gold: #d8bc83;
+}
+
+@font-face {
+  font-family: "Pelak";
+  src: url("/Fonts/Pelak/Pelak-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pelak";
+  src: url("/Fonts/Pelak/Pelak-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pelak";
+  src: url("/Fonts/Pelak/Pelak-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pelak";
+  src: url("/Fonts/Pelak/Pelak-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Pelak", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: #9cbddc;
+  color: #08182d;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+html {
+  scroll-behavior: auto;
+}
